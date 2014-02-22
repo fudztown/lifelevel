@@ -1,19 +1,3 @@
-/*
- * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
- * distribution for a full listing of individual contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.lifeleveler.model;
 
 import java.io.Serializable;
@@ -32,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -49,13 +32,11 @@ public class Categories implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 45)
-    @Pattern(regexp = "[A-Za-z]*", message = "must contain only letters")
     @Column(name="NAME")
     private String name;
     
     @NotNull
     @Size(min = 1, max = 45)
-    @Pattern(regexp = "[A-Za-z]*", message = "must contain only letters")
     @Column(name="DESCRIPTION")
     private String description;
     
@@ -79,8 +60,8 @@ public class Categories implements Serializable {
 	
     @OneToMany(mappedBy="categories", cascade=CascadeType.ALL)
     private List<Areas> areas = new ArrayList<Areas>();
-	
-	
+
+
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -140,7 +121,70 @@ public class Categories implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public List<Areas> getAreas() {
+		return areas;
+	}
 
+
+	public void setAreas(List<Areas> areas) {
+		this.areas = areas;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((areas == null) ? 0 : areas.hashCode());
+		result = prime * result
+				+ ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((positionId == null) ? 0 : positionId.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categories other = (Categories) obj;
+		if (areas == null) {
+			if (other.areas != null)
+				return false;
+		} else if (!areas.equals(other.areas))
+			return false;
+		if (categoryId == null) {
+			if (other.categoryId != null)
+				return false;
+		} else if (!categoryId.equals(other.categoryId))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (positionId == null) {
+			if (other.positionId != null)
+				return false;
+		} else if (!positionId.equals(other.positionId))
+			return false;
+		return true;
+	}
+	
+	
 	
     
 }

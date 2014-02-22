@@ -32,4 +32,13 @@ public class UserRegistration {
     public void register(Users users) throws Exception {
         em.persist(users);
     }
+    
+    public void delete(Users users) throws Exception {
+    	Object managed = em.merge(users);
+    	em.remove(managed);
+    }
+    
+    public void exists(Users users) throws Exception {
+ 
+    }
 }

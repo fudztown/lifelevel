@@ -33,17 +33,14 @@ public class CreateUserTest {
 
     @Test
 	public void testUserInsert() throws Exception {
-		System.out.println("Here!");
 		Users newUser = new Users();
 		newUser.setFirst_name("Peter");
 		newUser.setLast_name("Town");
 		newUser.setEmail("peter.town@gmail.com");
 		newUser.setPhoneNumber("01442259567");
 		userRegistration.register(newUser);
-		System.out.println("User Id "+newUser.getUser_id());
 		assertNotNull(newUser.getUser_id());
-		assertNotNull("Hello World");
-		
+		//userRegistration.delete(newUser);
 	}
 
 }
